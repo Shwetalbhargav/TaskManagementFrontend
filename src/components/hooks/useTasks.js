@@ -4,8 +4,8 @@ import * as taskService  from "../services/taskService";
 const useTasks = () =>{
     const [tasks, setTasks] = useState([]);
 
-    const fetchTasks = async(filters = {}) =>{
-        const data = await taskService.getTask(Filters);
+    const fetchTasks = async(filters = {}) => {
+        const data = await taskService.getTask(filters);
         setTasks(data);
     };
 

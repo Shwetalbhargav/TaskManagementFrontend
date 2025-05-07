@@ -8,7 +8,7 @@ export const createTask = async(taskData) =>{
 };
 
 export const getTask = async(filetrs ={}) =>{
-    const res = await axios.get(`${API}/tasks`, {data: filetrs});
+    const res = await axios.get(`${API}/tasks`, {params: filetrs});
     return res.data;
 };
 export const updateTask = async(id, updatedData) =>{

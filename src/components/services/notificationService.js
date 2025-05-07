@@ -3,7 +3,7 @@ import axios from "axios";
 const API = process.env.NEXT_PUBLIC_API_URL;
 
 export const getNotifications = async() =>{
-    const res = await axios.post(`${API}/notifications`);
+    const res = await axios.get(`${API}/notifications`);
     return res.data;
 };
 
