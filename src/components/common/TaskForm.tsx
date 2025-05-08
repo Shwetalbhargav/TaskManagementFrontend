@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import useTasks from '@/components/hooks/useTasks';
+import { Task, TaskStatus } from '@/components/types/taskTypes';
 
 interface TaskFormProps {
   onSuccess: () => void;
@@ -16,6 +17,7 @@ export default function TaskForm({ onSuccess, buttonClassName, taskToEdit }: Tas
     description: '',
     dueDate: '',
     priority: '3-Medium',
+    status: 'pending' as TaskStatus,
   });
 
   useEffect(() => {
@@ -34,8 +36,15 @@ export default function TaskForm({ onSuccess, buttonClassName, taskToEdit }: Tas
       await createTask(task);
     }
     onSuccess?.();
-    setTask({ title: '', description: '', dueDate: '', priority: '3-Medium' });
+    setTask({
+      title: '',
+      description: '',
+      dueDate: '',
+      priority: '3-Medium',
+      status: 'pending',
+    });
   };
+  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -94,16 +103,17 @@ export default function TaskForm({ onSuccess, buttonClassName, taskToEdit }: Tas
       <div>
   <label className="block text-sm font-medium mb-1">Status</label>
   <select
-    className="w-full border rounded px-4 py-2"
-    name="status"
-    value={task.status}
-    onChange={handleChange}
-  >
-    <option value="pending">Pending</option>
-    <option value="inProgress">In Progress</option>
-    <option value="completed">Completed</option>
-    <option value="discarded">Discarded</option>
-  </select>
+  name="status"
+  value={task.status}
+  onChange={handleChange}
+  className="w-full border rounded px-4 py-2"
+>
+  <option value="pending">Pending</option>
+  <option value="inProgress">In Progress</option>
+  <option value="completed">Completed</option>
+  <option value="discarded">Discarded</option>
+</select>
+
 </div>
 
 
