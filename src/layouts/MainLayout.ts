@@ -1,8 +1,8 @@
 'use cient'
 
     import React ,{useState} from "react";
-    import SideBar from "../components/SideBar";
-    import Footer from "../components/Footer";
+    import SideBar from "./SideBar";
+    import Footer from "./Footer";
 
     const MainLayout = ({children}) =>{
         const[collapsed, setCollapsed] = useState();
