@@ -16,18 +16,34 @@ const LoginPage: React.FC = () => {
     try {
       const data = await login({ username, password });
       localStorage.setItem('token', data.token);
-      router.push('/dashboard');
+      localStorage.setItem('role', data.role); 
+  
+      // Redirect based on role
+      switch (data.role) {
+        case 'admin':
+          router.push('/dashboard/admin');
+          break;
+        case 'manager':
+          router.push('/dashboard/manager');
+          break;
+        case 'user':
+          router.push('/dashboard/user');
+          break;
+        default:
+          router.push('/dashboard'); // fallback
+      }
     } catch (err: any) {
       setError(err?.response?.data?.message || 'Login failed');
     }
   };
+  
 
   return (
     <div className="flex h-screen">
       {/* Left Side - Illustration */}
       <div className="w-1/2 bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center relative">
         <Image
-          src="/images/File2.avif" // Make sure this file is in public/images/
+          src="/images/File2.avif" 
           alt="Event"
           fill
           style={{ objectFit: "cover" }}
@@ -35,12 +51,12 @@ const LoginPage: React.FC = () => {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-1/2 bg-white flex items-center justify-center">
+      <div className="w-1/2 bg-white text-black flex items-center justify-center">
         <div className="w-2/3 max-w-md">
-          <h2 className="text-2xl font-semibold text-indigo-700 mb-6">
+          <h2 className="text-2xl  text-black font-semibold text-dark-700 mb-6">
             Login to your account
           </h2>
-          <form className="space-y-4" onSubmit={handleLogin}>
+          <form className="space-y-4 text-black" onSubmit={handleLogin}>
             <input
               type="text"
               placeholder="Username"
@@ -68,7 +84,7 @@ const LoginPage: React.FC = () => {
               Don't have an account?{' '}
               <span
                 className="text-indigo-600 cursor-pointer"
-                onClick={() => router.push('/register')}
+                onClick={() => router.push('./register')}
               >
                 Create Account
               </span>

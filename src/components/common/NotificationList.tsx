@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { getNotifications, markAsRead } from '@/components/services/notificationService';
+import { Notification } from '@/components/types/notificationTypes'; 
+
 
 export default function NotificationList() {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const load = async () => {
     const data = await getNotifications();
@@ -14,7 +16,7 @@ export default function NotificationList() {
     load();
   }, []);
 
-  const handleRead = async (id) => {
+  const handleRead = async (id: string) => {
     await markAsRead(id);
     load();
   };
@@ -27,7 +29,11 @@ export default function NotificationList() {
             <p>{n.message}</p>
             <small>{new Date(n.createdAt).toLocaleString()}</small>
           </div>
-          {!n.read && <button className="text-blue-600 text-sm" onClick={() => handleRead(n._id)}>Mark as Read</button>}
+          {!n.read && (
+            <button className="text-blue-600 text-sm" onClick={() => handleRead(n._id)}>
+              Mark as Read
+            </button>
+          )}
         </li>
       ))}
     </ul>
