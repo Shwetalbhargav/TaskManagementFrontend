@@ -21,3 +21,13 @@ export const updateTask = async (id: string, updates: Partial<Task>): Promise<Ta
 export const deleteTask = async (id: string): Promise<void> => {
   await axios.delete(`${API}/tasks/${id}`, { withCredentials: true });
 };
+
+export const getTaskDashboard = async () => {
+  try {
+    const response = await axios.get(`${API}/tasks/dashboard`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    throw error;
+  }
+};
